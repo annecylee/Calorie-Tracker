@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Health Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" media="screen and (min-width: 801px)" href="style.css"> -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" media="screen and (max-width: 800px)" href="mobile.css"> -->
+    <meta name="viewport" width=device-width, initial-scale=1, content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <div id="trackerapp">
+      <div id="overlay-back"></div>
+      <div id="overlay">
+        <img class="zoom" src="imgs/logo.png" />
+      </div>
+
+      <header><div><img id="logo" src="imgs/logo.png" /></div><h1>Ehealthy</h1>
+        <div id="form">
+          <form id="add-new-food" method="post">
+              <input id="new-food" type='text' placeholder="blue cheese"></input>
+              <button type='submit' id="search">search<i class="fa fa-search text-style" aria-hidden="true"></i></button>
+          </form>
+          <div id="list">
+            <ul id="resultList">
+              <!-- The search result will be inserted here -->
+            </ul>
+          </div>
+          <div id="listCopy">
+            <ul id="resultListCopy">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <section>
+        <div class="header">
+          <div><h3>Your daily total: <span id="dailyTotal"></span></h3></div>
+        </div>
+
+        <table id="daily-foods">
+          <thead>
+            <tr id="tableHeader">
+              <th>Food<span id="count"></span></th>
+              <th>Qty</th>
+              <th>Calories</th>
+              <th id="clear"><i class="fa fa-eraser" aria-hidden="true"></i> Clear All</th>
+            </tr>
+          </thead>
+          <tbody id="foodList">
+          </tbody>
+        </table>
+      </section>
+      <ul id="options">
+      </ul>
+    </div>
+
+   <!-- JavaScript Includes -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
+    <script src="js/backbone.localStorage.js"></script>
+    <script src="js/script.js"></script>
+
+     <script type="text/template" id="item-template">
+       <td><img class="thumb" src=<%- img %> /><%- food %></td>
+       <td><%- qty %></td>
+       <td><%- calories %></td>
+       <td><i class="fa fa-trash-o destroy" aria-hidden="true"></i></td>
+     </script>
+
+     <script type="text/template" id="listTemplate">
+       <div class="option"><%- name %></div>
+     </script>
+    </body>
+</html>
