@@ -103,12 +103,12 @@ $(function(){
         render: function() {
             this.$el.html(this.template(this.model.toJSON()));
 
-            // Hide resultList when click outside of it
+            // Hide optionList when click outside of it
             $(window).click(function() {
-                $("#resultList").slideUp();
+                $("#optionList").slideUp();
             });
 
-            $('#resultList').click(function(event){
+            $('#optionList').click(function(event){
                 event.stopPropagation();
             });
             return this;
@@ -121,11 +121,11 @@ $(function(){
 
             Foods.add({img: img, food: food, qty: qty, calories: calories, newlyAdded: true});
 
-            this.$("#resultList").html("");
+            this.$("#optionList").html("");
 
-            $("#resultList").slideUp();
+            $("#optionList").slideUp();
 
-            this.$("#resultList").html("{img: img, name: food, food: food, qty: qty, calories: calories}");
+            this.$("#optionList").html("{img: img, name: food, food: food, qty: qty, calories: calories}");
 
 
             return false;
@@ -133,7 +133,7 @@ $(function(){
 
         hideOptions: function(e) {
           var currentTarget = $(e.currentTarget);
-          $("#resultListCopy").show();
+          $("#optionListCopy").show();
           var food = this.model.get("food");
           var element = $("#foodList tr:last");
           var start = $(e.currentTarget).offset();
@@ -146,7 +146,7 @@ $(function(){
 
           $("#listCopy").css({"top": start.top, "left": "-" + start.left, "opacity": 1})
 
-          $("#resultListCopy li").text(food)
+          $("#optionListCopy li").text(food)
 
           $("#listCopy").animate({
             "top": end.top + 5,
@@ -154,7 +154,7 @@ $(function(){
           });
 
           var timer = window.setTimeout( function() {
-              this.$("#resultListCopy").hide();
+              this.$("#optionListCopy").hide();
               $("#listCopy").animate({
                 "top": "0",
                 "left": "0",
@@ -202,7 +202,7 @@ $(function(){
           });
         },
         emptyOptions: function() {
-            this.$("#resultList").html("");
+            this.$("#optionList").html("");
             return false;
         },
         addOne: function(food) {
@@ -219,7 +219,7 @@ $(function(){
         },
         addOption: function(opt) {
             var view = new OptionView({model: opt});
-            this.$("#resultList").append(view.render().el);
+            this.$("#optionList").append(view.render().el);
         },
         addCal: function(food) {
           var calories = food.get("calories")
@@ -262,7 +262,7 @@ $(function(){
 
                 }
                 if (length) {
-                    $("#resultList").slideDown();
+                    $("#optionList").slideDown();
                 };
             }).fail(function( jqXHR, textStatus) {
 

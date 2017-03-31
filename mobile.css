@@ -1,3 +1,4 @@
+
 .* {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -41,8 +42,8 @@ body {
 
 .zoom{
   position: relative;
-  height: 400px;
-  weight: 400px;
+  height: 200px;
+  weight: 200px;
   margin-top: 200px;
   background-color: #fff;
   box-shadow: 3px 3px 7px #333;
@@ -56,35 +57,39 @@ header {
   display: inline-flex;
   vertical-align: middle;
   margin-bottom: 20px;
+  /*flex-direction: column;*/
+  flex-wrap: wrap;
 }
 
 h1 {
   margin: 0;
-  flex-basis: 20%;
   vertical-align: middle;
+  flex-basis: 50%;
   line-height: 80px;
   font-size: 26px;
   color: #9d8e62;
 }
+
+
 #logo {
   margin: 10px;
   margin-left: 40px;
-  flex-basis: 20%;
+  flex-basis: 50%;
 }
 
 #form {
-  display: flex;
-  flex-basis: 60%;
+  display: inline-flex;
   text-align: center;
-  margin-top: 20px;
-  flex-direction: column;
+  margin: 20px auto;
+  flex-wrap: nowrap;
 }
 
 input {
   height: 28px;
-  width: 280px;
+  width: 200px;
   font-size: 16px;
   padding-left: 10px;
+  border: 1.5px solid #ccc;
 }
 
 #new-food:focus {
@@ -96,8 +101,8 @@ button {
   text-align: center;
   height: 32px;
   font-size: 16px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
   margin-left: 10px;
   box-shadow: 1px 1px 5px #888;
   color: #fff;
@@ -136,38 +141,80 @@ button:active .text-style{
   display: inline-flex;
   line-height: 0px;
   vertical-align: middle;
-  margin-top: 20px;
+  margin-top: 60px;
 }
 
-table {
+/*table {
   margin: 0 auto;
   margin-top: 20px;
   border-collapse: collapse;
   width: 70%;
   min-width: 800px;
+}*/
+
+
+/* Force table to not be like tables anymore */
+ table, thead, tbody, th, td, tr {
+		display: block;
+	}
+
+	/* Hide table headers (but not display: none;, for accessibility) */
+thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+tr {
+  border: 1px solid #ccc;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:space-between;
 }
 
-th {
-  border-bottom: 1px solid #cfdee2;
-  padding: 10px;
-  text-align: left;
-}
+td {
+		border: none;
+		position: relative;
+    /*border: 1px solid black;*/
+		padding-left: 50%;
+		white-space: normal;
+		text-align:left;
+    padding: 0;
+	}
 
-#tableHeader:nth-child(1) {
-  width: 60%;
-}
+  tr td:nth-child(1) {
+    padding: 0;
+    padding-top: 20px;
+    order: 1;
+    flex-basis: 80%;
+    margin-left: 10px;
+  }
 
-th:nth-child(2) {
-  width: 15%;
-}
+  tr td:nth-child(2) {
+    padding: 0;
+    padding-left: 50px;
+    order: 3;
+    margin-left: 10px;
+  }
 
-th:nth-child(3) {
-  width: 10%;
-}
+  tr td:nth-child(3) {
+    order: 2;
+    padding: 0;
+    padding-top: 20px;
+    margin-right: 20px;
+    text-align: right;
+    flex-basis: 10%;
+  }
 
-th:nth-child(4) {
-  width: 15%;
-}
+  tr td:nth-child(4) {
+    order: 4;
+    padding: 0;
+    text-align: right;
+    margin-right: 30px;
+  }
+
+
+
 
 #clear {
   width: 15%;
@@ -214,15 +261,11 @@ td {
 }
 
 .destroy {
-  visibility: hidden;
   color: #888 ;
 	cursor:  url(imgs/pointer.png), auto;
   color: #00994d ;
 }
 
-tbody tr:hover .destroy {
-   visibility: visible;
-}
 
 .destroy:hover {
     -webkit-transform: scale(1.2);

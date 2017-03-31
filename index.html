@@ -2,10 +2,9 @@
 <html lang="en">
   <head>
     <title>Health Tracker</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- <link rel="stylesheet" media="screen and (min-width: 801px)" href="style.css"> -->
+    <link rel="stylesheet" media="screen and (min-width: 801px)" href="style.css">
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <!-- <link rel="stylesheet" media="screen and (max-width: 800px)" href="mobile.css"> -->
+    <link rel="stylesheet" media="screen and (max-width: 800px)" href="mobile.css">
     <link rel="icon" href="imgs/logo.png">
     <meta name="viewport" width=device-width, initial-scale=1, content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
@@ -24,19 +23,18 @@
               <button type='submit' id="search">search<i class="fa fa-search text-style" aria-hidden="true"></i></button>
           </form>
           <div id="list">
-            <ul id="resultList">
-              <!-- The search result will be inserted here -->
+            <ul id="optionList">
             </ul>
           </div>
           <div id="listCopy">
-            <ul id="resultListCopy">
+            <ul id="optionListCopy">
               <li></li>
             </ul>
           </div>
         </div>
       </header>
       <section>
-        <div class="header">
+        <div class="title">
           <div><h3>Your daily total: <span id="dailyTotal"></span></h3></div>
         </div>
 
@@ -53,11 +51,8 @@
           </tbody>
         </table>
       </section>
-      <ul id="options">
-      </ul>
     </div>
 
-   <!-- JavaScript Includes -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
@@ -65,10 +60,10 @@
     <script src="js/script.js"></script>
 
      <script type="text/template" id="item-template">
-       <td><img class="thumb" src=<%- img %> /><%- food %></td>
-       <td><%- qty %></td>
-       <td><%- calories %></td>
-       <td><i class="fa fa-trash-o destroy" aria-hidden="true"></i></td>
+       <td data-title="Food"><img class="thumb" src=<%- img %> /><%- food %></td>
+       <td data-title="Qty"><%- qty %></td>
+       <td data-title="Calories"><%- calories %></td>
+       <td data-title="Delete"><i class="fa fa-trash-o destroy" aria-hidden="true"></i></td>
      </script>
 
      <script type="text/template" id="listTemplate">
