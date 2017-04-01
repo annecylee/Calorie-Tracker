@@ -127,11 +127,6 @@ button {
   cursor:  url(imgs/pointer.png), auto;
 }
 
-button:hover {
-  transform: scale(1.1);
-  box-shadow: 3px 3px 7px #888;
-}
-
 .text-style {
   padding-left: 10px;
   font-size: 16px;
@@ -240,10 +235,6 @@ tr td:nth-child(4) {
   cursor:  url(imgs/pointer.png), auto;
 }
 
-#clear:hover {
-  transform: scale(1.2);
-}
-
 #clear:active {
   color: #ffecb3;
 }
@@ -278,12 +269,6 @@ td {
   color: #888 ;
 	cursor:  url(imgs/pointer.png), auto;
   color: #00994d ;
-}
-
-.destroy:hover {
-    -webkit-transform: scale(1.2);
-    -ms-transform: scale(1.2);
-    transform: scale(1.2);
 }
 
 .destroy:active {
@@ -325,10 +310,6 @@ td {
   cursor:  url(imgs/pointer.png), auto;
 }
 
-#optionList li:hover {
-  background-color: #eff5ef;
-}
-
 #optionList li:active {
   background-color: #fff;
   color: #00cc99;
@@ -357,6 +338,7 @@ td {
 }
 
 #listCopy {
+  display: none;
   position: relative;
   height: 0;
 }
