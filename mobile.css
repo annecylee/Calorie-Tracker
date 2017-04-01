@@ -40,13 +40,30 @@ body {
     display: none;
 }
 
-.zoom{
+figure {
   position: relative;
-  height: 200px;
-  weight: 200px;
-  margin-top: 200px;
+  padding: 10px;
+  height: 300px;
+  /*width: 300px;*/
+  margin-top: 80px;
   background-color: #fff;
   box-shadow: 3px 3px 7px #333;
+}
+
+
+figure .destroy {
+  visibility: visible;
+  position: absolute;
+  right: 50px;
+  top: 30px;
+  font-size: 30px;
+}
+
+
+.zoom{
+  margin-top: 20px;
+  height: 200px;
+  weight: 200px;
 }
 
 header {
@@ -70,7 +87,6 @@ h1 {
   color: #9d8e62;
 }
 
-
 #logo {
   margin: 10px;
   margin-left: 40px;
@@ -86,7 +102,7 @@ h1 {
 
 input {
   height: 28px;
-  width: 200px;
+  width: 180px;
   font-size: 16px;
   padding-left: 10px;
   border: 1.5px solid #ccc;
@@ -100,7 +116,7 @@ input {
 button {
   text-align: center;
   height: 32px;
-  font-size: 16px;
+  font-size: 14px;
   padding-left: 10px;
   padding-right: 10px;
   margin-left: 10px;
@@ -141,32 +157,28 @@ button:active .text-style{
   display: inline-flex;
   line-height: 0px;
   vertical-align: middle;
-  margin-top: 60px;
+  margin-top: 50px;
+  margin-bottom: 20px;
 }
-
-/*table {
-  margin: 0 auto;
-  margin-top: 20px;
-  border-collapse: collapse;
-  width: 70%;
-  min-width: 800px;
-}*/
-
 
 /* Force table to not be like tables anymore */
  table, thead, tbody, th, td, tr {
 		display: block;
 	}
 
-	/* Hide table headers (but not display: none;, for accessibility) */
+/* Hide table headers (but not display: none;, for accessibility) */
 thead tr {
 		position: absolute;
 		top: -9999px;
 		left: -9999px;
 	}
 
+tr:nth-child(1) {
+  border-top: 1px solid #ccc;
+}
+
 tr {
-  border: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
   display: flex;
   flex-wrap: wrap;
   justify-content:space-between;
@@ -175,46 +187,48 @@ tr {
 td {
 		border: none;
 		position: relative;
-    /*border: 1px solid black;*/
+    height: auto;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 		padding-left: 50%;
 		white-space: normal;
 		text-align:left;
     padding: 0;
 	}
 
-  tr td:nth-child(1) {
+tr td:nth-child(1) {
     padding: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     padding-top: 20px;
     order: 1;
     flex-basis: 80%;
     margin-left: 10px;
-  }
+}
 
-  tr td:nth-child(2) {
-    padding: 0;
-    padding-left: 50px;
-    order: 3;
-    margin-left: 10px;
-  }
+tr td:nth-child(2) {
+  padding: 0;
+  padding-left: 50px;
+  order: 3;
+  margin-left: 10px;
+}
 
-  tr td:nth-child(3) {
-    order: 2;
-    padding: 0;
-    padding-top: 20px;
-    margin-right: 20px;
-    text-align: right;
-    flex-basis: 10%;
-  }
+tr td:nth-child(3) {
+  order: 2;
+  padding: 0;
+  padding-top: 20px;
+  margin-right: 20px;
+  text-align: right;
+  flex-basis: 10%;
+}
 
-  tr td:nth-child(4) {
-    order: 4;
-    padding: 0;
-    text-align: right;
-    margin-right: 30px;
-  }
-
-
-
+tr td:nth-child(4) {
+  order: 4;
+  padding: 0;
+  text-align: right;
+  margin-right: 30px;
+}
 
 #clear {
   width: 15%;
@@ -266,7 +280,6 @@ td {
   color: #00994d ;
 }
 
-
 .destroy:hover {
     -webkit-transform: scale(1.2);
     -ms-transform: scale(1.2);
@@ -285,16 +298,17 @@ td {
 #optionList {
   display: none;
   position: relative;
-  bottom: 0;
-  width: 420px;
-  padding-top: 30px;
-  padding-bottom: 30px;
+  height: 350px;
+  width: 294px;
+  overflow: scroll;
+  padding-top: 10px;
+  padding-bottom: 10px;
   padding-left: 0;
-  line-height: 38px;
   font-size: 16px;
   background-color: #fff;
   margin: 0 auto;
-  margin-top: 5px;
+  margin-left: -297px;
+  margin-top: 35px;
   z-index: 2;
   border: 1px solid #ccc;
   box-shadow: 3px 3px 7px #ccc;
@@ -302,6 +316,8 @@ td {
 
 #optionList li {
   list-style: none;
+  border-bottom: 1px solid #cfdee2;
+  padding:10px;
   text-align:left;
   text-indent: 0;
   left: 0;
@@ -340,7 +356,6 @@ td {
     }
 }
 
-
 #listCopy {
   position: relative;
   height: 0;
@@ -376,4 +391,8 @@ td {
 .colorChanged {
   animation-name: color;
   animation-duration: 3s;
+}
+
+figure.destroy {
+  visibility: visible;
 }

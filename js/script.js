@@ -4,7 +4,6 @@ $(function(){
 
   // Create a model for the services
     var Food = Backbone.Model.extend({
-
         // Default attributes for the tracker item
         defaults: function() {
             return {
@@ -15,9 +14,9 @@ $(function(){
               };
         },
         url: ""
-
     });
 
+    // Create a model for search result
     var OptionItem =  Backbone.Model.extend({
         defaults: function() {
             return {
@@ -46,14 +45,14 @@ $(function(){
         tagName: "tr",
         className: function() {
             if (this.model.get("newlyAdded")) {
-                return "colorChanged food"
+                return "colorChanged food";
             }
-            return "food"
+            return "food";
         },
         template: _.template($('#item-template').html()),
         events: {
           "click .destroy" : "clear",
-          "click .thumb" : "zoom",
+          "click td:nth-child(1), td:nth-child(2), td:nth-child(3)" : "detail",
         },
 
        // Set a direct reference on the model
@@ -63,22 +62,28 @@ $(function(){
 
         render: function() {
             this.$el.html(this.template(this.model.toJSON()));
-
             return this;
         },
 
         clear: function(e) {
             var currentTarget = $(e.currentTarget);
-            currentTarget.parents('tr').removeClass("colorChanged").addClass("removedItem");
+            currentTarget.parents('tr').removeClass("colorChanged").addClass(" \
+            removedItem");
             var self = this;
 
             var timer = window.setTimeout( function() {
                 self.model.destroy();
             }, 500);
         },
-        zoom: function(e) {
+        // Detail of the food will popup if user click tha food list
+        detail: function(e) {
           var img = this.model.get("img");
+          var food = this.model.get("food");
+          var qty = this.model.get("qty");
+          var calories = this.model.get("calories");
+
           $(".zoom").attr({src: img});
+          $("figcaption").html(food + " (" + qty + ")" + "</br>" + calories + " cal");
           $('#overlay, #overlay-back').fadeIn(500);
 
           $("#overlay, #overlay-back").click(function() {
@@ -93,8 +98,8 @@ $(function(){
         template: _.template($('#listTemplate').html()),
         events: {
           "click .option": function(e) {
-            this.addFood();
-            this.hideOptions(e);
+              this.addFood();
+              this.hideOptions(e);
           }
         },
         initialize: function() {
@@ -113,54 +118,60 @@ $(function(){
             });
             return this;
         },
+        // Once user click an option from list, that food will be added
         addFood: function() {
             var img = this.model.get("img");
             var food = this.model.get("food");
             var qty = this.model.get("qty");
             var calories = this.model.get("calories");
 
-            Foods.add({img: img, food: food, qty: qty, calories: calories, newlyAdded: true});
+            Foods.add({img: img, food: food, qty: qty, calories: calories,
+              newlyAdded: true});
 
             this.$("#optionList").html("");
 
             $("#optionList").slideUp();
 
-            this.$("#optionList").html("{img: img, name: food, food: food, qty: qty, calories: calories}");
+            this.$("#optionList").html("{img: img, name: food, food: food, \
+              qty: qty, calories: calories}");
 
 
             return false;
         },
 
+        // Hide options list, and show some animations
         hideOptions: function(e) {
-          var currentTarget = $(e.currentTarget);
-          $("#optionListCopy").show();
-          var food = this.model.get("food");
-          var element = $("#foodList tr:last");
-          var start = $(e.currentTarget).offset();
-          var end;
-          if (element.length) {
-              end = $("#foodList tr:last").offset()
-          } else {
-              end = {top: 152, left:250}
-          };
+            var currentTarget = $(e.currentTarget);
+            $("#optionListCopy").show();
+            var food = this.model.get("food");
+            var element = $("#foodList tr:last");
+            var start = currentTarget.offset();
+            var end;
 
-          $("#listCopy").css({"top": start.top, "left": "-" + start.left, "opacity": 1})
+            if (element.length) {
+                end = $("#foodList tr:last").offset();
+            } else {
+                end = {top: 152, left:250};
+            }
 
-          $("#optionListCopy li").text(food)
+            $("#listCopy").css({"top": start.top, "left": "-" + start.left,
+              "opacity": 1});
 
-          $("#listCopy").animate({
-            "top": end.top + 5,
-            "left": -end.left - 108,
-          });
+            $("#optionListCopy li").text(food);
 
-          var timer = window.setTimeout( function() {
-              this.$("#optionListCopy").hide();
-              $("#listCopy").animate({
-                "top": "0",
-                "left": "0",
-                "opacity": 0
-              })
-          }, 560);
+            $("#listCopy").animate({
+                "top": end.top + 5,
+                "left": -end.left - 108,
+            });
+
+            var timer = window.setTimeout( function() {
+                this.$("#optionListCopy").hide();
+                $("#listCopy").animate({
+                  "top": "0",
+                  "left": "0",
+                  "opacity": 0
+                });
+            }, 560);
         }
 
     });
@@ -175,7 +186,7 @@ $(function(){
               this.emptyOptions(e);
             },
 
-            "click #clear": "reset"
+            "click #clear": "reset",
         },
         initialize: function() {
             this.input = this.$("#new-food");
@@ -192,9 +203,6 @@ $(function(){
             Foods.fetch();
 
         },
-        render: function() {
-
-        },
         reset: function() {
           // Clear all data
           _.each(_.clone(Foods.models), function(model) {
@@ -205,48 +213,57 @@ $(function(){
             this.$("#optionList").html("");
             return false;
         },
+        // Add food view to the dom
         addOne: function(food) {
+            var view = new FoodView({model: food});
 
-          var view = new FoodView({model: food});
+            food.unset("newlyAdded");
+            food.save();
 
-          food.unset("newlyAdded");
-          food.save();
-          window.setTimeout( function() {
-              this.$("#foodList").append(view.render().el);
+            window.setTimeout( function() {
+                this.$("#foodList").append(view.render().el);
 
-          }, 460);
+            }, 460);
 
         },
+        // Append option view to the dom
         addOption: function(opt) {
             var view = new OptionView({model: opt});
+
             this.$("#optionList").append(view.render().el);
         },
+        // If food is added, subtract its calories
         addCal: function(food) {
-          var calories = food.get("calories")
-            if (calories) {
-              this.totalCal += parseInt(food.get("calories"));
-              this.updateData();
-            }
+            var calories = food.get("calories");
+
+              if (calories) {
+                this.totalCal += parseInt(food.get("calories"));
+                this.updateData();
+              }
         },
+        // If food is deleted, subtract its calories
         subCal: function(food) {
-            var calories = food.get("calories")
+            var calories = food.get("calories");
             if (calories) {
               this.totalCal -= parseInt(food.get("calories"));
               this.updateData();
             }
         },
+        // Update totdal calories & number of foods added
         updateData: function() {
             $("#dailyTotal").html(this.totalCal);
             // Number of foods
             $("#count").html(" (" + Foods.length + ")");
 
         },
+        // Return a list of options based on user's queries
         populateOptions: function(e) {
             e.preventDefault();
             if (!this.input.val()) return;
             userInput = this.input.val();
             $.ajax({
-              url: "https://trackapi.nutritionix.com/v2/search/instant?query=" + userInput,
+              url: "https://trackapi.nutritionix.com/v2/search/instant?query=" +
+                userInput,
               headers: {
                 "x-app-id": "71233c0a",
                 "x-app-key": "02a9b500b81b6ab2e3f000058f372305",
@@ -254,16 +271,20 @@ $(function(){
               method: "get",
               dataType: 'json',
             }).done(function(results) {
-                var foodList = []
-                var length = results.branded.length
+                var length = results.branded.length;
+
                 for (var n=0; n < length && n < 20; n++) {
-                    var food = results.branded[n]
-                    Options.add({name: results.branded[n].food_name, img: food.photo.thumb, food: food.food_name, qty: food.serving_qty.toString() + " " + food.serving_unit, calories: food.nf_calories});
+                    var food = results.branded[n];
+                    Options.add({name: results.branded[n].food_name,
+                      img: food.photo.thumb, food: food.food_name,
+                      qty: food.serving_qty.toString() + " " + food.serving_unit,
+                      calories: food.nf_calories});
 
                 }
+
                 if (length) {
                     $("#optionList").slideDown();
-                };
+                }
             }).fail(function( jqXHR, textStatus) {
 
             });
