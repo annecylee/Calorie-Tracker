@@ -255,6 +255,12 @@ $(function(){
             // Number of foods
             $("#count").html(" (" + Foods.length + ")");
 
+            if (!Foods.length) {
+              $("#clear").hide()
+            }else {
+              $("#clear").show()
+            }
+
         },
         // Return a list of options based on user's queries
         populateOptions: function(e) {
